@@ -94,10 +94,8 @@
             <div class="main-card" style="text-align:center;">
                 <h2 id="cab-name">---</h2>
                 <button class="btn-mega" style="width:auto; padding:10px;" onclick="changeNickname()">ИЗМЕНИТЬ НИК</button>
-                <div style="margin-top:20px; text-align:left; background:rgba(255,255,255,0.05); padding:15px; border-radius:20px;">
-                    <p>ID: <b id="cab-id">---</b></p>
-                    <p>Баланс: <b id="cab-bal">0</b></p>
-                </div>
+                <p>ID: <b id="cab-id">---</b></p>
+                <p>Баланс: <b id="cab-bal">0</b></p>
             </div>
         </section>
 
@@ -105,75 +103,53 @@
             <div class="back-nav" onclick="nav('lobby')">← НАЗАД</div>
             <div class="main-card">
                 <h3>МАГАЗИН</h3>
-                <div class="shop-item"><b>1000 монет</b><button class="btn-mega" style="width:auto; padding:10px 20px;" onclick="buy(1000, 2)">2$</button></div>
+                <div class="shop-item"><b>1000 монет</b><button onclick="buy(1000, 2)">2$</button></div>
+                <div class="shop-item"><b>3000 монет</b><button onclick="buy(3000, 5)">5$</button></div>
+                <div class="shop-item"><b>5000 монет</b><button onclick="buy(5000, 7)">7$</button></div>
+                <div class="shop-item"><b>10000 монет</b><button onclick="buy(10000, 10)">10$</button></div>
             </div>
         </section>
 
         <section id="crash" class="screen">
             <div class="back-nav" onclick="nav('lobby')">← НАЗАД</div>
-            <div class="crash-stage">
-                <div id="cr-m" style="position:absolute; width:100%; text-align:center; top:40px; font-size:3rem; font-weight:900;">1.00x</div>
-                <div id="rocket">🚀</div>
-                <canvas id="cr-canvas" style="width:100%; height:100%;"></canvas>
-            </div>
-            <input type="number" id="cr-bet" value="100">
-            <button id="cr-btn" class="btn-mega" onclick="runCrash()">ВЗЛЕТ</button>
+            <div class="crash-stage"><div id="cr-m" style="position:absolute; width:100%; text-align:center; top:40px; font-size:3rem;">1.00x</div><div id="rocket">🚀</div><canvas id="cr-canvas" style="width:100%; height:100%;"></canvas></div>
+            <input type="number" id="cr-bet" value="100"><button id="cr-btn" class="btn-mega" onclick="runCrash()">ВЗЛЕТ</button>
         </section>
 
         <section id="dice" class="screen">
             <div class="back-nav" onclick="nav('lobby')">← НАЗАД</div>
-            <div class="main-card" style="text-align:center">
-                <div style="display:flex; justify-content:space-around; margin-bottom:20px;">
-                    <div id="d-p" class="dice-cube">?</div>
-                    <div id="d-b" class="dice-cube" style="background:#222; color:#fff;">?</div>
-                </div>
-                <input type="number" id="d-bet" value="100">
-                <button class="btn-mega" onclick="playDice()">БРОСИТЬ</button>
-            </div>
+            <div style="display:flex; justify-content:space-around;"><div id="d-p" class="dice-cube">?</div><div id="d-b" class="dice-cube">?</div></div>
+            <input type="number" id="d-bet" value="100"><button class="btn-mega" onclick="playDice()">БРОСИТЬ</button>
         </section>
 
         <section id="slots" class="screen">
             <div class="back-nav" onclick="nav('lobby')">← НАЗАД</div>
-            <div class="main-card" style="text-align:center">
-                <div class="slot-reel" id="s-reel">💎 🍒 🍋</div>
-                <input type="number" id="s-bet" value="50" style="margin-top:20px;">
-                <button class="btn-mega" onclick="playSlots()">КРУТИТЬ</button>
-            </div>
+            <div class="slot-reel" id="s-reel">💎 🍒 🍋</div>
+            <input type="number" id="s-bet" value="50"><button class="btn-mega" onclick="playSlots()">КРУТИТЬ</button>
         </section>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
+        tg.ready(); tg.expand();
 
-        // 1. ПОЛУЧАЕМ ДАННЫЕ ИЗ URL И ОБЛАКА
         const urlParams = new URLSearchParams(window.location.search);
         const nickFromUrl = urlParams.get('nick');
         const user = tg.initDataUnsafe.user;
-        const uId = user ? user.id : "GUEST-" + Math.floor(Math.random() * 900000);
+        const uId = user ? user.id : "USR-" + Math.floor(Math.random() * 899999 + 100000);
+        const storageKey = `mon_v4_final_${uId}`;
         
-        let state = { 
-            bal: 1000, 
-            reg: false, 
-            nick: nickFromUrl || (user ? user.first_name : "Player")
+        let state = JSON.parse(localStorage.getItem(storageKey)) || { 
+            bal: 1000, reg: false, nick: nickFromUrl || (user ? user.first_name : "Player")
         };
 
-        // Загрузка из облака Telegram (хранится вечно)
-        function loadData() {
-            tg.CloudStorage.getItem('user_state_v4', (err, value) => {
-                if (!err && value) {
-                    const savedState = JSON.parse(value);
-                    state.bal = savedState.bal;
-                    state.reg = savedState.reg;
-                    // Ник из ссылки бота всегда главнее, если он есть
-                    state.nick = nickFromUrl || savedState.nick;
-                }
-                init();
-            });
+        if(nickFromUrl && nickFromUrl !== state.nick) {
+            state.nick = nickFromUrl;
+            localStorage.setItem(storageKey, JSON.stringify(state));
         }
 
         function init() {
+            document.getElementById('reg-user').innerText = state.nick;
             syncProfile();
             if(!state.reg) {
                 document.getElementById('reg-screen').style.display = 'flex';
@@ -189,42 +165,25 @@
             const displayNick = state.nick.length > 12 ? state.nick.substring(0,10) + '..' : state.nick;
             document.getElementById('u-name').innerText = displayNick.toUpperCase();
             document.getElementById('cab-name').innerText = state.nick;
-            document.getElementById('reg-user').innerText = state.nick;
             document.getElementById('u-id').innerText = "ID: " + uId;
             document.getElementById('cab-id').innerText = uId;
-        }
-
-        function save() {
-            // Сохраняем в облако Telegram
-            tg.CloudStorage.setItem('user_state_v4', JSON.stringify(state));
-            updateUI();
         }
 
         function changeNickname() {
             let n = prompt("Ваш новый ник:", state.nick);
             if(n && n.length >= 2) { 
                 state.nick = n; 
+                save(); 
                 syncProfile();
-                save();
-                // Мы не используем sendData, чтобы игра не закрылась.
-                // При следующем входе бот увидит ник из облака (или через API)
+                tg.sendData(JSON.stringify({action: "update_nick", new_nick: n}));
             }
         }
 
-        function finishReg() { state.reg = true; save(); init(); }
+        function finishReg() { state.reg = true; save(); document.getElementById('reg-screen').style.display = 'none'; document.getElementById('game-interface').style.display = 'block'; }
+        function save() { localStorage.setItem(storageKey, JSON.stringify(state)); updateUI(); }
+        function updateUI() { const b = Math.floor(state.bal).toLocaleString(); document.getElementById('h-bal').innerText = b; document.getElementById('cab-bal').innerText = b + " 💰"; }
+        function nav(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 
-        function updateUI() { 
-            const b = Math.floor(state.bal).toLocaleString(); 
-            document.getElementById('h-bal').innerText = b; 
-            document.getElementById('cab-bal').innerText = b + " 💰"; 
-        }
-
-        function nav(id) { 
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); 
-            document.getElementById(id).classList.add('active'); 
-        }
-
-        // --- ИГРЫ (ТВОЙ ОРИГИНАЛЬНЫЙ КОД) ---
         function playDice() {
             let b = +document.getElementById('d-bet').value; if(b > state.bal || b <= 0) return;
             const dp = document.getElementById('d-p'), db = document.getElementById('d-b');
@@ -279,12 +238,8 @@
             } else { clearInterval(crT); crA = false; state.bal += b * crM; rk.style.display = 'none'; save(); }
         }
 
-        function buy(c, u) { 
-            // Здесь оставляем sendData, так как покупка требует взаимодействия с ботом
-            tg.sendData(JSON.stringify({action:"deposit", amount_usd:u, coins_to_add:c})); 
-        }
-
-        loadData();
+        function buy(c, u) { tg.sendData(JSON.stringify({action:"deposit", amount_usd:u, coins_to_add:c})); }
+        init();
     </script>
 </body>
 </html>
