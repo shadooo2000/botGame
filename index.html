@@ -9,7 +9,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
         
         :root {
-            --bg: #010206; --panel: rgba(13, 17, 30, 0.98);
+            --bg: #010206; --panel: rgba(13, 17, 30, 0.98); 
             --primary: #00f2fe; --secondary: #7000ff; 
             --accent: #ff007a; --success: #00ff88;
             --text: #ffffff; --border: rgba(255, 255, 255, 0.1);
@@ -20,51 +20,40 @@
 
         .bg-vfx { position: fixed; inset: 0; background: radial-gradient(circle at 10% 10%, var(--secondary), transparent 45%), radial-gradient(circle at 90% 90%, var(--primary), transparent 45%); opacity: 0.12; z-index: -1; }
 
-        /* REGISTRATION */
         #reg-screen { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 30px; }
         .reg-card { background: var(--panel); border: 2px solid var(--primary); border-radius: 40px; padding: 45px 25px; width: 100%; max-width: 400px; text-align: center; backdrop-filter: blur(20px); box-shadow: 0 0 60px rgba(0, 242, 254, 0.15); }
 
         #game-interface { display: none; width: 100%; max-width: 440px; margin: 0 auto; padding: 20px; padding-bottom: 120px; }
-        
-        /* MODERN CARDS */
+
         .main-card { background: var(--panel); border: 1px solid var(--border); border-radius: 32px; padding: 25px; margin-bottom: 20px; backdrop-filter: blur(15px); position: relative; overflow: hidden; }
         .bal-val { font-size: 2.8rem; font-weight: 900; color: var(--primary); filter: drop-shadow(0 0 15px var(--primary)); }
 
-        /* LOBBY GRID */
         .lobby-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         .card-btn { background: var(--panel); border: 1px solid var(--border); border-radius: 28px; padding: 30px 15px; text-align: center; cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .card-btn:active { transform: scale(0.94); border-color: var(--primary); }
-        .card-btn i { font-size: 2.5rem; display: block; margin-bottom: 12px; font-style: normal; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+        .card-btn i { font-size: 2.5rem; display: block; margin-bottom: 12px; font-style: normal; }
 
-        /* BUTTONS */
-        .btn-mega { width: 100%; padding: 20px; border-radius: 22px; border: none; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #000; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.2s; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
-        .btn-mega:active { transform: translateY(2px); box-shadow: none; }
-        .back-nav { background: var(--panel); border: 1px solid var(--border); color: #fff; padding: 12px 24px; border-radius: 16px; margin-bottom: 20px; cursor: pointer; display: inline-block; font-weight: 700; }
+        .btn-mega { width: 100%; padding: 20px; border-radius: 22px; border: none; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #000; font-weight: 900; cursor: pointer; text-transform: uppercase; }
 
-        /* SCREENS ANIMATION */
+        .back-nav { background: var(--panel); border: 1px solid var(--border); color: #fff; padding: 12px 24px; border-radius: 16px; margin-bottom: 20px; cursor: pointer; display: inline-block; }
+
         .screen { display: none; animation: screenIn 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
         .active { display: block; }
+
         @keyframes screenIn { from { opacity: 0; transform: translateY(40px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
-        /* SHOP UPGRADED */
-        .shop-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 24px; padding: 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; }
-        .shop-item:hover { border-color: var(--primary); background: rgba(0, 242, 254, 0.05); }
-        .badge { font-size: 0.65rem; background: var(--accent); padding: 4px 10px; border-radius: 10px; position: absolute; top: -10px; right: 20px; font-weight: 900; }
+        .shop-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 24px; padding: 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
 
-        /* GAME VFX */
-        .crash-stage { height: 220px; background: #000; border-radius: 30px; border: 2px solid #1e293b; position: relative; overflow: hidden; margin-bottom: 15px; box-shadow: inset 0 0 40px rgba(0, 242, 254, 0.05); }
-        #rocket { position: absolute; font-size: 2.2rem; z-index: 10; bottom: 10px; left: 10px; display: none; filter: drop-shadow(0 0 15px #fff); }
-        
-        .dice-cube { width: 85px; height: 85px; background: #fff; border-radius: 20px; color: #000; font-size: 3rem; font-weight: 900; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(255,255,255,0.2); }
+        .crash-stage { height: 220px; background: #000; border-radius: 30px; border: 2px solid #1e293b; position: relative; overflow: hidden; margin-bottom: 15px; }
+        #rocket { position: absolute; font-size: 2.2rem; z-index: 10; bottom: 10px; left: 10px; display: none; }
+
+        .dice-cube { width: 85px; height: 85px; background: #fff; border-radius: 20px; color: #000; font-size: 3rem; font-weight: 900; display: flex; align-items: center; justify-content: center; }
         .rolling { animation: diceRoll 0.6s infinite alternate; }
-        @keyframes diceRoll { from { transform: rotate(0deg) scale(1); } to { transform: rotate(360deg) scale(1.1); } }
+        @keyframes diceRoll { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        .slot-reel { background: #000; border: 2px solid var(--primary); padding: 25px; border-radius: 25px; font-size: 3rem; letter-spacing: 12px; text-align: center; min-height: 100px; box-shadow: inset 0 0 30px var(--primary); }
-        .slot-spin { animation: slotBlur 0.15s infinite; }
-        @keyframes slotBlur { 0% { filter: blur(2px); opacity: 0.8; } 50% { filter: blur(6px); opacity: 0.5; } 100% { filter: blur(2px); opacity: 0.8; } }
+        .slot-reel { background: #000; border: 2px solid var(--primary); padding: 25px; border-radius: 25px; font-size: 3rem; text-align: center; }
 
-        input { width: 100%; background: rgba(0,0,0,0.6); border: 2px solid var(--border); padding: 18px; border-radius: 20px; color: #fff; text-align: center; font-size: 1.4rem; font-weight: 900; margin-bottom: 12px; outline: none; transition: 0.3s; }
-        input:focus { border-color: var(--primary); }
+        input { width: 100%; background: rgba(0,0,0,0.6); border: 2px solid var(--border); padding: 18px; border-radius: 20px; color: #fff; text-align: center; font-size: 1.4rem; margin-bottom: 12px; }
     </style>
 </head>
 <body>
@@ -72,10 +61,10 @@
 
     <div id="reg-screen">
         <div class="reg-card">
-            <div style="font-size: 4rem; margin-bottom: 15px;">⚡</div>
-            <h1 style="color: var(--primary); font-weight: 900; font-size: 2rem;">MONMATET</h1>
-            <p style="opacity: 0.6; margin: 15px 0;">Идентификация пользователя:<br><b id="reg-user" style="color:#fff; font-size: 1.2rem;">...</b></p>
-            <button class="btn-mega" onclick="finishReg()">НАЧАТЬ ИГРУ</button>
+            <div style="font-size: 4rem;">⚡</div>
+            <h1 style="color: var(--primary);">MONMATET</h1>
+            <p>Идентификация пользователя:<br><b id="reg-user">...</b></p>
+            <button class="btn-mega" onclick="finishReg()">НАЧАТЬ</button>
         </div>
     </div>
 
@@ -83,11 +72,8 @@
         <div class="main-card">
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <div style="display:flex; align-items:center; gap:12px;">
-                    <div style="width:50px; height:50px; border-radius:15px; background:linear-gradient(45deg, var(--secondary), var(--primary)); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:1.5rem;">M</div>
-                    <div>
-                        <span id="u-name" style="font-weight:900; color:var(--primary); font-size:1.1rem;">LOADING...</span><br>
-                        <span id="u-id" style="font-size:0.75rem; opacity:0.5;">ID: 000000</span>
-                    </div>
+                    <div style="width:50px; height:50px; border-radius:15px; background:linear-gradient(45deg, var(--secondary), var(--primary)); display:flex; align-items:center; justify-content:center;">M</div>
+                    <div><span id="u-name" style="font-weight:900; color:var(--primary);">...</span><br><span id="u-id" style="font-size:0.75rem; opacity:0.5;">ID: 000</span></div>
                 </div>
                 <div id="h-bal" class="bal-val">0</div>
             </div>
@@ -95,103 +81,72 @@
 
         <main id="lobby" class="screen active">
             <div class="lobby-grid">
-                <div class="card-btn" onclick="nav('cabinet')" style="grid-column: span 2; border: 1px solid var(--primary); background: rgba(0, 242, 254, 0.05);">👤 <b>МОЙ ПРОФИЛЬ</b></div>
+                <div class="card-btn" onclick="nav('cabinet')" style="grid-column: span 2;">👤 <b>ПРОФИЛЬ</b></div>
                 <div class="card-btn" onclick="nav('crash')"><i>🚀</i><b>CRASH</b></div>
                 <div class="card-btn" onclick="nav('dice')"><i>🎲</i><b>DICE</b></div>
                 <div class="card-btn" onclick="nav('slots')"><i>🎰</i><b>SLOTS</b></div>
-                <div class="card-btn" onclick="nav('shop')" style="background: linear-gradient(135deg, #1e1b4b, #312e81); border:none;"><i>💎</i><b>МАГАЗИН</b></div>
+                <div class="card-btn" onclick="nav('shop')"><i>💎</i><b>МАГАЗИН</b></div>
             </div>
         </main>
 
         <section id="cabinet" class="screen">
-            <div class="back-nav" onclick="nav('lobby')">← В ЛОББИ</div>
-            <div class="main-card">
-                <div style="text-align:center; margin-bottom:25px;">
-                    <div style="width:80px; height:80px; border-radius:25px; background:var(--border); margin:0 auto 15px; display:flex; align-items:center; justify-content:center; font-size:2.5rem;">👤</div>
-                    <h2 id="cab-name" style="font-size:1.8rem;">---</h2>
-                    <button class="btn-mega" style="width:auto; padding:8px 20px; font-size:0.8rem; margin-top:10px;" onclick="changeNickname()">ИЗМЕНИТЬ НИК</button>
-                </div>
-                <div style="background:rgba(255,255,255,0.03); border-radius:20px; padding:20px; display:flex; flex-direction:column; gap:15px;">
-                    <div style="display:flex; justify-content:space-between;"><span>ID Аккаунта</span><b id="cab-id">---</b></div>
-                    <div style="display:flex; justify-content:space-between;"><span>Ваш Баланс</span><b id="cab-bal" style="color:var(--success)">0 💰</b></div>
-                    <div style="display:flex; justify-content:space-between;"><span>Статус</span><b style="color:var(--primary)">ELITE PLAYER</b></div>
-                </div>
+            <div class="back-nav" onclick="nav('lobby')">← НАЗАД</div>
+            <div class="main-card" style="text-align:center;">
+                <h2 id="cab-name">---</h2>
+                <button class="btn-mega" style="width:auto; padding:10px;" onclick="changeNickname()">ИЗМЕНИТЬ НИК</button>
+                <p>ID: <b id="cab-id">---</b></p>
+                <p>Баланс: <b id="cab-bal">0</b></p>
             </div>
         </section>
 
         <section id="shop" class="screen">
-            <div class="back-nav" onclick="nav('lobby')">← В ЛОББИ</div>
+            <div class="back-nav" onclick="nav('lobby')">← НАЗАД</div>
             <div class="main-card">
-                <h3 style="text-align:center; margin-bottom:25px; font-size:1.5rem;">ПОПОЛНЕНИЕ БАЛАНСА</h3>
-                
-                <div class="shop-item">
-                    <div><b>START PACK</b><br><small style="opacity:0.6;">1,000 монет</small></div>
-                    <button class="btn-mega" style="width:auto; padding:10px 20px;" onclick="buy(1000, 2)">2$</button>
-                </div>
-
-                <div class="shop-item" style="border-color: var(--secondary); position:relative;">
-                    <div class="badge">POPULAR</div>
-                    <div><b>GAMER BUNDLE</b><br><small style="opacity:0.6;">5,000 монет</small></div>
-                    <button class="btn-mega" style="width:auto; padding:10px 20px; background:var(--secondary);" onclick="buy(5000, 7)">7$</button>
-                </div>
-
-                <div class="shop-item" style="border-color: var(--primary); position:relative;">
-                    <div class="badge" style="background:var(--success); color:#000;">BEST VALUE</div>
-                    <div><b>WHALE PACK</b><br><small style="opacity:0.6;">10,000 монет</small></div>
-                    <button class="btn-mega" style="width:auto; padding:10px 20px;" onclick="buy(10000, 10)">10$</button>
-                </div>
+                <h3>МАГАЗИН</h3>
+                <div class="shop-item"><b>1000 монет</b><button onclick="buy(1000, 2)">2$</button></div>
             </div>
         </section>
 
         <section id="crash" class="screen">
             <div class="back-nav" onclick="nav('lobby')">← НАЗАД</div>
-            <div class="crash-stage">
-                <div id="cr-m" style="position:absolute; width:100%; text-align:center; top:40px; font-size:3.5rem; font-weight:900; z-index:5;">1.00x</div>
-                <div id="rocket">🚀</div>
-                <canvas id="cr-canvas" style="width:100%; height:100%;"></canvas>
-            </div>
-            <input type="number" id="cr-bet" value="100">
-            <button id="cr-btn" class="btn-mega" onclick="runCrash()">ВЗЛЕТ</button>
+            <div class="crash-stage"><div id="cr-m" style="position:absolute; width:100%; text-align:center; top:40px; font-size:3rem;">1.00x</div><div id="rocket">🚀</div><canvas id="cr-canvas" style="width:100%; height:100%;"></canvas></div>
+            <input type="number" id="cr-bet" value="100"><button id="cr-btn" class="btn-mega" onclick="runCrash()">ВЗЛЕТ</button>
         </section>
 
         <section id="dice" class="screen">
             <div class="back-nav" onclick="nav('lobby')">← НАЗАД</div>
-            <div class="main-card" style="text-align:center">
-                <div style="display:flex; justify-content:space-around; margin:30px 0;">
-                    <div><div id="d-p" class="dice-cube">?</div><p style="margin-top:10px; font-size:0.8rem; opacity:0.5;">YOU</p></div>
-                    <div style="align-self:center; font-weight:900; color:var(--accent);">VS</div>
-                    <div><div id="d-b" class="dice-cube" style="background:#222; color:#fff;">?</div><p style="margin-top:10px; font-size:0.8rem; opacity:0.5;">BOT</p></div>
-                </div>
-                <input type="number" id="d-bet" value="100">
-                <button class="btn-mega" onclick="playDice()">ROLL DICE</button>
-            </div>
+            <div style="display:flex; justify-content:space-around;"><div id="d-p" class="dice-cube">?</div><div id="d-b" class="dice-cube">?</div></div>
+            <input type="number" id="d-bet" value="100"><button class="btn-mega" onclick="playDice()">БРОСИТЬ</button>
         </section>
 
         <section id="slots" class="screen">
             <div class="back-nav" onclick="nav('lobby')">← НАЗАД</div>
-            <div class="main-card" style="text-align:center">
-                <div class="slot-reel" id="s-reel">💎 🍒 🍋</div>
-                <input type="number" id="s-bet" value="50" style="margin-top:20px;">
-                <button class="btn-mega" onclick="playSlots()">SPIN</button>
-            </div>
+            <div class="slot-reel" id="s-reel">💎 🍒 🍋</div>
+            <input type="number" id="s-bet" value="50"><button class="btn-mega" onclick="playSlots()">КРУТИТЬ</button>
         </section>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.ready(); tg.expand();
-        
-        // --- УЛУЧШЕННАЯ ЛОГИКА УНИКАЛЬНОГО ID ---
+
+        // --- ДОБАВЛЕНО ДЛЯ СОХРАНЕНИЯ НИКА ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const nickFromUrl = urlParams.get('nick');
+
         const user = tg.initDataUnsafe.user;
-        // Если зашел через ТГ — берем его ТГ ID, если нет — генерируем случайный уникальный ID
         const uId = user ? user.id : "USR-" + Math.floor(Math.random() * 899999 + 100000);
         const storageKey = `mon_v4_final_${uId}`;
         
         let state = JSON.parse(localStorage.getItem(storageKey)) || { 
-            bal: 1000, 
-            reg: false, 
-            nick: user ? user.first_name : "Player"
+            bal: 1000, reg: false, nick: nickFromUrl || (user ? user.first_name : "Player")
         };
+
+        // Если бот прислал ник в ссылке, обновляем его
+        if(nickFromUrl && nickFromUrl !== state.nick) {
+            state.nick = nickFromUrl;
+            localStorage.setItem(storageKey, JSON.stringify(state));
+        }
 
         function init() {
             document.getElementById('reg-user').innerText = state.nick;
@@ -216,36 +171,22 @@
 
         function changeNickname() {
             let n = prompt("Ваш новый ник:", state.nick);
-            if(n && n.length >= 2) { state.nick = n; save(); syncProfile(); }
+            if(n && n.length >= 2) { 
+                state.nick = n; 
+                save(); 
+                syncProfile();
+                // ОТПРАВЛЯЕМ БОТУ ДЛЯ БАЗЫ ДАННЫХ
+                tg.sendData(JSON.stringify({action: "update_nick", new_nick: n}));
+            }
         }
 
-        function finishReg() {
-            state.reg = true;
-            save();
-            document.getElementById('reg-screen').style.display = 'none';
-            document.getElementById('game-interface').style.display = 'block';
-        }
+        function finishReg() { state.reg = true; save(); document.getElementById('reg-screen').style.display = 'none'; document.getElementById('game-interface').style.display = 'block'; }
+        function save() { localStorage.setItem(storageKey, JSON.stringify(state)); updateUI(); }
+        function updateUI() { const b = Math.floor(state.bal).toLocaleString(); document.getElementById('h-bal').innerText = b; document.getElementById('cab-bal').innerText = b + " 💰"; }
+        function nav(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 
-        function save() { 
-            localStorage.setItem(storageKey, JSON.stringify(state));
-            updateUI(); 
-        }
-
-        function updateUI() {
-            const b = Math.floor(state.bal).toLocaleString();
-            document.getElementById('h-bal').innerText = b;
-            document.getElementById('cab-bal').innerText = b + " 💰";
-        }
-
-        function nav(id) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-        }
-
-        // --- GAMES LOGIC (СОХРАНЕНО ИЗ ПРЕДЫДУЩЕЙ ВЕРСИИ) ---
         function playDice() {
-            let b = +document.getElementById('d-bet').value;
-            if(b > state.bal || b <= 0) return;
+            let b = +document.getElementById('d-bet').value; if(b > state.bal || b <= 0) return;
             const dp = document.getElementById('d-p'), db = document.getElementById('d-b');
             dp.classList.add('rolling'); db.classList.add('rolling');
             setTimeout(() => {
@@ -258,17 +199,16 @@
         }
 
         function playSlots() {
-            let b = +document.getElementById('s-bet').value;
-            if(b > state.bal || b <= 0) return;
+            let b = +document.getElementById('s-bet').value; if(b > state.bal || b <= 0) return;
             state.bal -= b; save();
             const reel = document.getElementById('s-reel');
-            reel.classList.add('slot-spin');
+            reel.style.opacity = '0.5';
             setTimeout(() => {
-                reel.classList.remove('slot-spin');
+                reel.style.opacity = '1';
                 const s = ['💎','🍒','7️⃣','🍋','🔔'];
                 const r = [s[Math.floor(Math.random()*5)], s[Math.floor(Math.random()*5)], s[Math.floor(Math.random()*5)]];
                 reel.innerText = r.join(' ');
-                if(r[0] === r[1] && r[1] === r[2]) { state.bal += b*10; tg.HapticFeedback.notificationOccurred('success'); }
+                if(r[0] === r[1] && r[1] === r[2]) state.bal += b*10;
                 save();
             }, 800);
         }
@@ -280,43 +220,26 @@
             if(!crA) {
                 if(b > state.bal) return;
                 crA = true; state.bal -= b; crM = 1.0; pts = []; 
-                rk.style.display = 'block'; cv.width = cv.clientWidth;
-                cv.height = cv.clientHeight;
-                let boom = 1.1 + Math.random() * 4.2;
+                rk.style.display = 'block'; cv.width = cv.clientWidth; cv.height = cv.clientHeight;
+                let boom = 1.1 + Math.random() * 3.5;
                 crT = setInterval(() => {
-                    crM += crM * 0.018; pts.push(crM);
+                    crM += crM * 0.02; pts.push(crM);
                     document.getElementById('cr-m').innerText = crM.toFixed(2)+'x';
                     ctx.clearRect(0,0,cv.width,cv.height);
-                    ctx.beginPath(); ctx.strokeStyle = "#00f2fe"; ctx.lineWidth = 4;
-                    ctx.moveTo(0, cv.height);
+                    ctx.beginPath(); ctx.strokeStyle = "#00f2fe"; ctx.lineWidth = 3;
                     pts.forEach((p, i) => {
                         let x = (i / (pts.length + 5)) * cv.width;
-                        let y = cv.height - (Math.pow(p, 1.3) * 15);
+                        let y = cv.height - (p * 20);
                         ctx.lineTo(x, y);
-                        if(i === pts.length - 1) { rk.style.left = (x - 10) + 'px'; rk.style.top = (y - 20) + 'px'; }
+                        if(i === pts.length - 1) { rk.style.left = x + 'px'; rk.style.top = y + 'px'; }
                     });
                     ctx.stroke();
-                    if(crM >= boom) { 
-                        clearInterval(crT); crA = false; rk.style.display = 'none'; 
-                        document.getElementById('cr-m').innerText = "BOOM!";
-                        document.getElementById('cr-btn').innerText = "ВЗЛЕТ";
-                        save();
-                    }
-                }, 70);
-                document.getElementById('cr-btn').innerText = "ЗАБРАТЬ";
-            } else { 
-                clearInterval(crT);
-                crA = false; state.bal += b * crM; 
-                rk.style.display = 'none'; document.getElementById('cr-btn').innerText = "ВЗЛЕТ";
-                save();
-            }
+                    if(crM >= boom) { clearInterval(crT); crA = false; rk.style.display = 'none'; save(); }
+                }, 100);
+            } else { clearInterval(crT); crA = false; state.bal += b * crM; rk.style.display = 'none'; save(); }
         }
 
-        function buy(c, u) {
-            tg.sendData(JSON.stringify({action:"deposit", amount_usd:u, coins_to_add:c, user_id:uId, nickname: state.nick}));
-            tg.close();
-        }
-
+        function buy(c, u) { tg.sendData(JSON.stringify({action:"deposit", amount_usd:u, coins_to_add:c})); }
         init();
     </script>
 </body>
