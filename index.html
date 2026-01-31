@@ -63,8 +63,8 @@
         <div class="reg-card">
             <div style="font-size: 4rem;">⚡</div>
             <h1 style="color: var(--primary);">MONMATET</h1>
-            <p>Идентификация пользователя:<br><b id="reg-user">...</b></p>
-            <button class="btn-mega" onclick="finishReg()">НАЧАТЬ</button>
+            <p>Добро пожаловать!<br><b id="reg-user">...</b></p>
+            <button class="btn-mega" onclick="finishReg()">ИГРАТЬ</button>
         </div>
     </div>
 
@@ -72,7 +72,7 @@
         <div class="main-card">
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <div style="display:flex; align-items:center; gap:12px;">
-                    <div style="width:50px; height:50px; border-radius:15px; background:linear-gradient(45deg, var(--secondary), var(--primary)); display:flex; align-items:center; justify-content:center;">M</div>
+                    <div style="width:50px; height:50px; border-radius:15px; background:linear-gradient(45deg, var(--secondary), var(--primary)); display:flex; align-items:center; justify-content:center; font-weight:900;">M</div>
                     <div><span id="u-name" style="font-weight:900; color:var(--primary);">...</span><br><span id="u-id" style="font-size:0.75rem; opacity:0.5;">ID: 000</span></div>
                 </div>
                 <div id="h-bal" class="bal-val">0</div>
@@ -81,7 +81,7 @@
 
         <main id="lobby" class="screen active">
             <div class="lobby-grid">
-                <div class="card-btn" onclick="nav('cabinet')" style="grid-column: span 2;">👤 <b>ПРОФИЛЬ</b></div>
+                <div class="card-btn" onclick="nav('cabinet')" style="grid-column: span 2;">👤 <b>МОЙ ПРОФИЛЬ</b></div>
                 <div class="card-btn" onclick="nav('crash')"><i>🚀</i><b>CRASH</b></div>
                 <div class="card-btn" onclick="nav('dice')"><i>🎲</i><b>DICE</b></div>
                 <div class="card-btn" onclick="nav('slots')"><i>🎰</i><b>SLOTS</b></div>
@@ -92,8 +92,8 @@
         <section id="cabinet" class="screen">
             <div class="back-nav" onclick="nav('lobby')">← НАЗАД</div>
             <div class="main-card" style="text-align:center;">
-                <h2 id="cab-name">---</h2>
-                <button class="btn-mega" style="width:auto; padding:10px; margin-bottom:15px;" onclick="changeNickname()">ИЗМЕНИТЬ НИК</button>
+                <h2 id="cab-name" style="margin-bottom:15px;">---</h2>
+                <button class="btn-mega" style="width:auto; padding:10px 20px; margin-bottom:20px;" onclick="changeNickname()">ИЗМЕНИТЬ НИК</button>
                 <div style="text-align:left; background:rgba(255,255,255,0.05); padding:15px; border-radius:20px;">
                     <p>ID: <b id="cab-id">---</b></p>
                     <p>Баланс: <b id="cab-bal">0</b></p>
@@ -105,59 +105,32 @@
             <div class="back-nav" onclick="nav('lobby')">← НАЗАД</div>
             <div class="main-card">
                 <h3 style="margin-bottom:20px; color:var(--primary);">💎 МАГАЗИН МОНЕТ</h3>
-                
-                <div class="shop-item">
-                    <b>1,000 МОНЕТ</b>
-                    <button class="btn-mega" style="width:auto; padding:10px 15px;" onclick="buy(1000, 2)">2$</button>
-                </div>
-
-                <div class="shop-item">
-                    <b>3,000 МОНЕТ</b>
-                    <button class="btn-mega" style="width:auto; padding:10px 15px;" onclick="buy(3000, 5)">5$</button>
-                </div>
-
-                <div class="shop-item">
-                    <b>5,000 МОНЕТ</b>
-                    <button class="btn-mega" style="width:auto; padding:10px 15px;" onclick="buy(5000, 7)">7$</button>
-                </div>
-
-                <div class="shop-item">
-                    <b>10,000 МОНЕТ</b>
-                    <button class="btn-mega" style="width:auto; padding:10px 15px;" onclick="buy(10000, 10)">10$</button>
-                </div>
+                <div class="shop-item"><b>1,000 МОНЕТ</b><button class="btn-mega" style="width:auto; padding:8px 15px;" onclick="buy(1000, 2)">2$</button></div>
+                <div class="shop-item"><b>3,000 МОНЕТ</b><button class="btn-mega" style="width:auto; padding:8px 15px;" onclick="buy(3000, 5)">5$</button></div>
+                <div class="shop-item"><b>5,000 МОНЕТ</b><button class="btn-mega" style="width:auto; padding:8px 15px;" onclick="buy(5000, 7)">7$</button></div>
+                <div class="shop-item"><b>10,000 МОНЕТ</b><button class="btn-mega" style="width:auto; padding:8px 15px;" onclick="buy(10000, 10)">10$</button></div>
             </div>
         </section>
 
         <section id="crash" class="screen">
             <div class="back-nav" onclick="nav('lobby')">← НАЗАД</div>
-            <div class="crash-stage">
-                <div id="cr-m" style="position:absolute; width:100%; text-align:center; top:40px; font-size:3rem; font-weight:900;">1.00x</div>
-                <div id="rocket">🚀</div>
-                <canvas id="cr-canvas" style="width:100%; height:100%;"></canvas>
-            </div>
+            <div class="crash-stage"><div id="cr-m" style="position:absolute; width:100%; text-align:center; top:40px; font-size:3rem; font-weight:900;">1.00x</div><div id="rocket">🚀</div><canvas id="cr-canvas"></canvas></div>
             <input type="number" id="cr-bet" value="100">
             <button id="cr-btn" class="btn-mega" onclick="runCrash()">ВЗЛЕТ</button>
         </section>
 
         <section id="dice" class="screen">
             <div class="back-nav" onclick="nav('lobby')">← НАЗАД</div>
-            <div class="main-card" style="text-align:center">
-                <div style="display:flex; justify-content:space-around; margin-bottom:20px;">
-                    <div id="d-p" class="dice-cube">?</div>
-                    <div id="d-b" class="dice-cube" style="background:#222; color:#fff;">?</div>
-                </div>
-                <input type="number" id="d-bet" value="100">
-                <button class="btn-mega" onclick="playDice()">БРОСИТЬ</button>
-            </div>
+            <div style="display:flex; justify-content:space-around; margin: 20px 0;"><div id="d-p" class="dice-cube">?</div><div id="d-b" class="dice-cube" style="background:#222; color:#fff;">?</div></div>
+            <input type="number" id="d-bet" value="100">
+            <button class="btn-mega" onclick="playDice()">БРОСИТЬ</button>
         </section>
 
         <section id="slots" class="screen">
             <div class="back-nav" onclick="nav('lobby')">← НАЗАД</div>
-            <div class="main-card" style="text-align:center">
-                <div class="slot-reel" id="s-reel">💎 🍒 🍋</div>
-                <input type="number" id="s-bet" value="50" style="margin-top:20px;">
-                <button class="btn-mega" onclick="playSlots()">КРУТИТЬ</button>
-            </div>
+            <div class="slot-reel" id="s-reel" style="margin: 20px 0;">💎 🍒 🍋</div>
+            <input type="number" id="s-bet" value="50">
+            <button class="btn-mega" onclick="playSlots()">КРУТИТЬ</button>
         </section>
     </div>
 
@@ -169,19 +142,22 @@
         const nickFromUrl = urlParams.get('nick');
         const user = tg.initDataUnsafe.user;
         const uId = user ? user.id : "USR-" + Math.floor(Math.random() * 899999 + 100000);
-        const storageKey = `mon_v4_final_${uId}`;
         
-        let state = JSON.parse(localStorage.getItem(storageKey)) || { 
-            bal: 1000, reg: false, nick: nickFromUrl || (user ? user.first_name : "Player")
-        };
+        let state = { bal: 1000, reg: false, nick: nickFromUrl || (user ? user.first_name : "Player") };
 
-        if(nickFromUrl && nickFromUrl !== state.nick) {
-            state.nick = nickFromUrl;
-            localStorage.setItem(storageKey, JSON.stringify(state));
+        function loadData() {
+            tg.CloudStorage.getItem('user_state_v4', (err, value) => {
+                if (!err && value) {
+                    const saved = JSON.parse(value);
+                    state.bal = saved.bal;
+                    state.reg = saved.reg;
+                    state.nick = nickFromUrl || saved.nick;
+                }
+                init();
+            });
         }
 
         function init() {
-            document.getElementById('reg-user').innerText = state.nick;
             syncProfile();
             if(!state.reg) {
                 document.getElementById('reg-screen').style.display = 'flex';
@@ -197,31 +173,30 @@
             const displayNick = state.nick.length > 12 ? state.nick.substring(0,10) + '..' : state.nick;
             document.getElementById('u-name').innerText = displayNick.toUpperCase();
             document.getElementById('cab-name').innerText = state.nick;
+            document.getElementById('reg-user').innerText = state.nick;
             document.getElementById('u-id').innerText = "ID: " + uId;
             document.getElementById('cab-id').innerText = uId;
         }
 
+        function save() { tg.CloudStorage.setItem('user_state_v4', JSON.stringify(state)); updateUI(); }
+
         function changeNickname() {
             let n = prompt("Ваш новый ник:", state.nick);
             if(n && n.length >= 2) { 
-                state.nick = n; 
-                save(); 
+                state.nick = n;
                 syncProfile();
+                save();
                 tg.sendData(JSON.stringify({action: "update_nick", new_nick: n}));
             }
         }
 
         function finishReg() { state.reg = true; save(); init(); }
-        function save() { localStorage.setItem(storageKey, JSON.stringify(state)); updateUI(); }
         function updateUI() { 
-            const b = Math.floor(state.bal).toLocaleString(); 
+            const b = Math.floor(state.bal).toLocaleString();
             document.getElementById('h-bal').innerText = b; 
             document.getElementById('cab-bal').innerText = b + " 💰"; 
         }
-        function nav(id) { 
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); 
-            document.getElementById(id).classList.add('active'); 
-        }
+        function nav(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 
         function playDice() {
             let b = +document.getElementById('d-bet').value; if(b > state.bal || b <= 0) return;
@@ -258,7 +233,7 @@
             if(!crA) {
                 if(b > state.bal) return;
                 crA = true; state.bal -= b; crM = 1.0; pts = []; 
-                rk.style.display = 'block'; cv.width = cv.clientWidth; cv.height = cv.clientHeight;
+                rk.style.display = 'block'; cv.width = cv.parentElement.clientWidth; cv.height = 220;
                 let boom = 1.1 + Math.random() * 3.5;
                 crT = setInterval(() => {
                     crM += crM * 0.02; pts.push(crM);
@@ -272,13 +247,13 @@
                         if(i === pts.length - 1) { rk.style.left = x + 'px'; rk.style.top = y + 'px'; }
                     });
                     ctx.stroke();
-                    if(crM >= boom) { clearInterval(crT); crA = false; rk.style.display = 'none'; save(); }
+                    if(crM >= boom) { clearInterval(crT); crA = false; rk.style.display = 'none'; save(); document.getElementById('cr-m').innerText = "BOOM!"; }
                 }, 100);
             } else { clearInterval(crT); crA = false; state.bal += b * crM; rk.style.display = 'none'; save(); }
         }
 
-        function buy(c, u) { tg.sendData(JSON.stringify({action: "deposit", amount_usd: u, coins_to_add: c})); }
-        init();
+        function buy(c, u) { tg.sendData(JSON.stringify({action:"deposit", amount_usd:u, coins_to_add:c})); }
+        loadData();
     </script>
 </body>
 </html>
