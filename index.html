@@ -3,174 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MONMATET ELITE - CABINET</title>
+    <title>MONMATET ELITE - FULL GAME</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
-        
         :root {
-            --bg: #010206;
-            --panel: #0d111e;
-            --primary: #00f2fe;
-            --secondary: #7000ff;
-            --text: #ffffff;
-            --border: rgba(255, 255, 255, 0.1);
-            --success: #00ff88;
+            --bg: #010206; --panel: #0d111e; --primary: #00f2fe; --secondary: #7000ff;
+            --text: #ffffff; --border: rgba(255, 255, 255, 0.1); --success: #00ff88; --accent: #ff007a;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); color: var(--text); padding: 20px; overflow-x: hidden; }
-
-        /* Верхняя панель */
-        .header-card {
-            background: linear-gradient(135deg, var(--panel), #1a1f35);
-            border: 1px solid var(--border);
-            border-radius: 25px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .bal-title { font-size: 0.8rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 1px; }
-        .bal-value { font-size: 2.2rem; font-weight: 900; color: var(--primary); margin: 5px 0; }
-
-        /* Меню */
-        .grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .menu-item {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            padding: 20px;
-            border-radius: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .menu-item:active { transform: scale(0.95); background: #161b2e; }
-        .menu-item b { display: block; margin-top: 8px; font-size: 0.9rem; }
-        .full-width { grid-column: span 2; border-color: var(--primary); background: rgba(0, 242, 254, 0.05); }
-
+        
+        .card { background: var(--panel); border: 1px solid var(--border); border-radius: 25px; padding: 20px; margin-bottom: 20px; }
+        .bal-val { font-size: 2.2rem; font-weight: 900; color: var(--primary); }
+        
         /* Экраны */
         .screen { display: none; animation: fadeIn 0.3s ease; }
         .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Личный кабинет */
-        .cabinet-info { line-height: 2; margin-top: 15px; }
-        .info-row { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding: 8px 0; }
-        .status-tag { background: var(--success); color: #000; padding: 2px 8px; border-radius: 5px; font-weight: 900; font-size: 0.7rem; }
+        /* Сетка игр */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .btn { background: var(--panel); border: 1px solid var(--border); padding: 20px; border-radius: 20px; text-align: center; cursor: pointer; }
+        .btn b { display: block; margin-top: 10px; font-size: 0.8rem; }
+        .btn-mega { width: 100%; padding: 15px; border-radius: 15px; border: none; background: linear-gradient(90deg, var(--primary), var(--secondary)); color: #fff; font-weight: 900; cursor: pointer; margin-top: 15px; }
 
-        /* Кнопки */
-        .btn-action {
-            width: 100%; padding: 15px; border-radius: 15px; border: none;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: #fff; font-weight: 900; cursor: pointer; margin-top: 15px;
-        }
-        .back-btn { color: var(--primary); margin-bottom: 15px; display: inline-block; cursor: pointer; }
+        /* Мини-игры визуализация */
+        .game-box { background: #000; border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 15px; border: 1px solid #1e293b; }
+        input { width: 100%; background: #000; border: 1px solid var(--border); padding: 10px; border-radius: 10px; color: #fff; text-align: center; margin-bottom: 10px; }
+        .back { color: var(--primary); cursor: pointer; margin-bottom: 15px; display: block; }
 
-        /* Магазин */
-        .shop-item {
-            background: rgba(255,255,255,0.03);
-            padding: 15px;
-            border-radius: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            border: 1px solid var(--border);
-        }
+        /* Регистрация */
+        #reg-screen { text-align: center; padding-top: 50px; }
     </style>
 </head>
 <body>
 
-    <div class="header-card">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span id="user-name" style="font-weight:900;">ЗАГРУЗКА...</span>
-            <span id="user-id" style="font-size:0.7rem; opacity:0.5;">ID: ---</span>
-        </div>
-        <div class="bal-title">Ваш игровой баланс</div>
-        <div id="display-bal" class="bal-value">0</div>
-    </div>
-
-    <div id="lobby" class="screen active">
-        <div class="grid-menu">
-            <div class="menu-item full-width" onclick="nav('cabinet')">
-                <span style="font-size:1.5rem;">👤</span>
-                <b>ЛИЧНЫЙ КАБИНЕТ</b>
-            </div>
-            <div class="menu-item" onclick="nav('shop')">
-                <span style="font-size:1.5rem;">💰</span>
-                <b>МАГАЗИН</b>
-            </div>
-            <div class="menu-item" onclick="alert('Скоро!')">
-                <span style="font-size:1.5rem;">🎰</span>
-                <b>СЛОТЫ</b>
-            </div>
+    <div id="reg-screen" class="screen">
+        <h1 style="font-size: 2.5rem; color: var(--primary);">WELCOME</h1>
+        <p style="opacity: 0.6; margin-bottom: 30px;">Пройдите быструю регистрацию</p>
+        <div class="card">
+            <p id="reg-name">Загрузка данных...</p>
+            <button class="btn-mega" onclick="completeReg()">СОЗДАТЬ АККАУНТ</button>
         </div>
     </div>
 
-    <div id="cabinet" class="screen">
-        <div class="back-btn" onclick="nav('lobby')">← НАЗАД</div>
-        <div class="header-card">
-            <h2 style="text-align:center;">ПРОФИЛЬ ИГРОКА</h2>
-            <div class="cabinet-info">
-                <div class="info-row"><span>Имя:</span> <b id="cab-name">---</b></div>
-                <div class="info-row"><span>Telegram ID:</span> <b id="cab-id">---</b></div>
-                <div class="info-row"><span>Статус:</span> <span class="status-tag">ACTIVE</span></div>
-                <div class="info-row"><span>Монет в базе:</span> <b id="cab-bal" style="color:var(--primary);">0</b></div>
+    <div id="game-ui" style="display: none;">
+        <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span id="u-name" style="font-weight:900;">ИГРОК</span>
+                <span id="u-id" style="font-size:0.7rem; opacity:0.5;">ID: ---</span>
             </div>
-            <p style="font-size: 0.7rem; opacity: 0.4; margin-top: 15px; text-align: center;">
-                *Данные синхронизируются с ботом при каждом входе
-            </p>
+            <div id="h-bal" class="bal-val">0</div>
         </div>
-    </div>
 
-    <div id="shop" class="screen">
-        <div class="back-btn" onclick="nav('lobby')">← НАЗАД</div>
-        <div class="header-card">
-            <h2 style="text-align:center; margin-bottom:15px;">ПОПОЛНЕНИЕ</h2>
-            <div class="shop-item">
-                <span>1,000 МОНЕТ</span>
-                <button class="btn-action" style="width:auto; margin:0; padding:8px 15px;" onclick="buy(1000, 2)">2$</button>
+        <main id="lobby" class="screen active">
+            <div class="grid">
+                <div class="btn" onclick="nav('cabinet')" style="grid-column: span 2; border-color: var(--primary);">👤 ЛИЧНЫЙ КАБИНЕТ</div>
+                <div class="btn" onclick="nav('crash')">🚀 <b>CRASH</b></div>
+                <div class="btn" onclick="nav('dice')">🎲 <b>DICE</b></div>
+                <div class="btn" onclick="nav('slots')">🎰 <b>SLOTS</b></div>
+                <div class="btn" onclick="nav('shop')">💰 <b>SHOP</b></div>
             </div>
-            <div class="shop-item">
-                <span>5,000 МОНЕТ</span>
-                <button class="btn-action" style="width:auto; margin:0; padding:8px 15px;" onclick="buy(5000, 7)">7$</button>
+        </main>
+
+        <section id="cabinet" class="screen">
+            <span class="back" onclick="nav('lobby')">← НАЗАД</span>
+            <div class="card">
+                <h3>ПРОФИЛЬ</h3>
+                <p style="margin-top:10px;">Статус: <span style="color:var(--success)">VIP ELITE</span></p>
+                <p>Баланс в БД: <span id="cab-bal">0</span></p>
             </div>
-            <div class="shop-item">
-                <span>10,000 МОНЕТ</span>
-                <button class="btn-action" style="width:auto; margin:0; padding:8px 15px;" onclick="buy(10000, 10)">10$</button>
+        </section>
+
+        <section id="shop" class="screen">
+            <span class="back" onclick="nav('lobby')">← НАЗАД</span>
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span>1,000 МОНЕТ</span>
+                    <button class="btn-mega" style="width:auto; margin:0; padding:5px 15px;" onclick="buy(1000, 2)">2$</button>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span>5,000 МОНЕТ</span>
+                    <button class="btn-mega" style="width:auto; margin:0; padding:5px 15px;" onclick="buy(5000, 7)">7$</button>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <section id="crash" class="screen">
+            <span class="back" onclick="nav('lobby')">← НАЗАД</span>
+            <div class="game-box">
+                <h2 id="cr-mult" style="font-size:3rem;">1.00x</h2>
+                <p id="cr-status">Готов к взлету</p>
+            </div>
+            <input type="number" id="cr-bet" value="100">
+            <button class="btn-mega" id="cr-btn" onclick="startCrash()">СТАРТ</button>
+        </section>
+
+        <section id="dice" class="screen">
+            <span class="back" onclick="nav('lobby')">← НАЗАД</span>
+            <div class="game-box">
+                <div style="display:flex; justify-content:space-around; font-size:2rem;">
+                    <div id="d-you">?</div><div>VS</div><div id="d-bot">?</div>
+                </div>
+            </div>
+            <input type="number" id="d-bet" value="100">
+            <button class="btn-mega" onclick="playDice()">БРОСИТЬ</button>
+        </section>
+
+        <section id="slots" class="screen">
+            <span class="back" onclick="nav('lobby')">← НАЗАД</span>
+            <div class="game-box" style="font-size:2rem; letter-spacing:10px;">
+                <span id="s1">🍒</span><span id="s2">🍒</span><span id="s3">🍒</span>
+            </div>
+            <input type="number" id="s-bet" value="50">
+            <button class="btn-mega" onclick="playSlots()">SPIN</button>
+        </section>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
-
-        // Данные пользователя
         const user = tg.initDataUnsafe.user;
 
-        // Состояние баланса (локальное для красоты, основное в базе бота)
-        let balance = parseInt(localStorage.getItem('mon_balance')) || 1000;
+        let state = JSON.parse(localStorage.getItem('mon_elite_final')) || { bal: 1000, reg: false };
 
         function init() {
-            if (user) {
-                document.getElementById('user-name').innerText = user.first_name.toUpperCase();
-                document.getElementById('user-id').innerText = "ID: " + user.id;
-                
-                // Для кабинета
-                document.getElementById('cab-name').innerText = user.first_name;
-                document.getElementById('cab-id').innerText = user.id;
+            if (!state.reg) {
+                nav('reg-screen');
+                if(user) document.getElementById('reg-name').innerText = user.first_name;
             } else {
-                document.getElementById('user-name').innerText = "OFFLINE ИГРОК";
+                showGame();
             }
-            updateDisplay();
+            updateUI();
         }
 
-        function updateDisplay() {
-            document.getElementById('display-bal').innerText = balance.toLocaleString();
-            document.getElementById('cab-bal').innerText = balance.toLocaleString();
-            localStorage.setItem('mon_balance', balance);
+        function completeReg() {
+            state.reg = true;
+            save();
+            showGame();
+        }
+
+        function showGame() {
+            document.getElementById('reg-screen').style.display = 'none';
+            document.getElementById('game-ui').style.display = 'block';
+            if (user) {
+                document.getElementById('u-name').innerText = user.first_name.toUpperCase();
+                document.getElementById('u-id').innerText = "ID: " + user.id;
+            }
+            nav('lobby');
+        }
+
+        function save() {
+            localStorage.setItem('mon_elite_final', JSON.stringify(state));
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('h-bal').innerText = Math.floor(state.bal).toLocaleString();
+            if(document.getElementById('cab-bal')) document.getElementById('cab-bal').innerText = Math.floor(state.bal);
         }
 
         function nav(id) {
@@ -178,22 +169,53 @@
             document.getElementById(id).classList.add('active');
         }
 
-        function buy(coins, usd) {
-            if (!user) {
-                alert("Ошибка: Зайдите через Telegram!");
-                return;
+        // --- ИГРОВАЯ ЛОГИКА ---
+        function playDice() {
+            let b = +document.getElementById('d-bet').value; if(b > state.bal || b <= 0) return;
+            let p = Math.floor(Math.random()*6)+1, bo = Math.floor(Math.random()*6)+1;
+            document.getElementById('d-you').innerText = p; document.getElementById('d-bot').innerText = bo;
+            if(p > bo) state.bal += b; else if(p < bo) state.bal -= b;
+            save();
+        }
+
+        function playSlots() {
+            let b = +document.getElementById('s-bet').value; if(b > state.bal || b <= 0) return;
+            state.bal -= b;
+            const items = ['🍒','💎','7️⃣','🍋'];
+            const r = [items[Math.floor(Math.random()*4)], items[Math.floor(Math.random()*4)], items[Math.floor(Math.random()*4)]];
+            document.getElementById('s1').innerText = r[0]; document.getElementById('s2').innerText = r[1]; document.getElementById('s3').innerText = r[2];
+            if(r[0]==r[1] && r[1]==r[2]) state.bal += b*10;
+            save();
+        }
+
+        let crActive = false, crMult = 1.0, crInt;
+        function startCrash() {
+            let b = +document.getElementById('cr-bet').value; if(b > state.bal && !crActive) return;
+            if(!crActive) {
+                crActive = true; state.bal -= b; crMult = 1.0;
+                document.getElementById('cr-btn').innerText = "CASH OUT";
+                let crashAt = 1.1 + Math.random() * 3;
+                crInt = setInterval(() => {
+                    crMult += 0.05;
+                    document.getElementById('cr-mult').innerText = crMult.toFixed(2) + "x";
+                    if(crMult >= crashAt) {
+                        clearInterval(crInt); crActive = false;
+                        document.getElementById('cr-mult').innerText = "BOOM!";
+                        document.getElementById('cr-btn').innerText = "СТАРТ";
+                        save();
+                    }
+                }, 100);
+            } else {
+                clearInterval(crInt); crActive = false;
+                state.bal += b * crMult;
+                document.getElementById('cr-btn').innerText = "СТАРТ";
+                save();
             }
+        }
 
-            // Пакет данных для Python бота
-            const data = {
-                action: "deposit",
-                amount_usd: usd,
-                coins_to_add: coins,
-                user_id: user.id
-            };
-
-            tg.sendData(JSON.stringify(data));
-            tg.close(); // Закрываем, чтобы юзер увидел кнопку оплаты в чате
+        function buy(coins, usd) {
+            tg.sendData(JSON.stringify({action: "deposit", amount_usd: usd, coins_to_add: coins, user_id: user.id}));
+            tg.close();
         }
 
         init();
